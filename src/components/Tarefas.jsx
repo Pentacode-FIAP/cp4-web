@@ -62,7 +62,77 @@ const Tarefas = () => {
 
   return (
     <>
-      
+      <div className='todo-container'>
+        <h1>Lista de Tarefas do Programador</h1>
+
+        <form onSubmit={AdicionarTarefa}>
+            <input
+                type="text"
+                value={nome}
+                // toda vez que digita, atualiza o estado
+                onChange={(e) => setNome(e.target.value)}
+                placeholder='Nome da tarefa'
+                className='todo-input'
+            />
+
+            <input
+                type="date"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+                className='todo-input'
+            />
+
+            <textarea
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                placeholder='Descrição da tarefa'
+                className='todo-input'
+            />
+
+            <select
+                value={prioridade}
+                onChange={(e) => setPrioridade(e.target.value)}
+                className='todo-input'
+            >
+                <option value="baixa">Baixa</option>
+                <option value="media">Média</option>
+                <option value="alta">Alta</option>
+            </select>
+
+            <button type="submit">Adicionar</button>
+        </form>
+
+        {/* botões de filtro */}
+        <div className='todo-filtros'>
+            <button onClick={() => setFiltro("todas")}>Todas</button>
+            <button onClick={() => setFiltro("pendentes")}>Pendentes</button>
+            <button onClick={() => setFiltro("concluidas")}>Concluídas</button>
+        </div>
+
+        <ul>
+            {/* percorre a lista filtrada e monta um <li> pra cada tarefa */}
+            {tarefasFiltradas.map((tarefa) => (
+                <li key={tarefa.id} className={tarefa.concluida ? 'concluida' : ''}>
+                    <div>
+                        <span className='tarefa-nome'>{tarefa.nome}</span>
+                        <span className='tarefa-data'>{tarefa.data}</span>
+                        <p className='tarefa-descricao'>{tarefa.descricao}</p>
+                        <span className={`prioridade ${tarefa.prioridade}`}>
+                            {tarefa.prioridade}
+                        </span>
+                    </div>
+
+                    {/* passa o id da tarefa pra função saber qual concluir/remover */}
+                    <button onClick={() => ConcluirTarefa(tarefa.id)}>
+                        {tarefa.concluida ? 'Reabrir' : 'Concluir'}
+                    </button>
+                    <button onClick={() => RemoverTarefa(tarefa.id)}>Excluir</button>
+                </li>
+            ))}
+        </ul>
+
+        {tarefasFiltradas.length === 0 && <p>Nenhuma tarefa salva</p>}
+    </div>
     </>
   )
 }
