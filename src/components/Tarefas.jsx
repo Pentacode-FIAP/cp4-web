@@ -60,7 +60,7 @@ const Tarefas = () => {
     });
  
   return (
-    <div className="min-h-screen bg-gray-100 py-10">
+    <div className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-md mx-auto bg-white p-6 rounded border border-gray-300">
         <h1 className="text-xl font-bold mb-5">Lista de Tarefas do Programador</h1>
  
@@ -107,7 +107,7 @@ const Tarefas = () => {
         </form>
  
         {/* botões de filtro */}
-        <div className="flex gap-2 mb-5">
+        <div className="flex flex-wrap gap-2 mb-5">
             <button
                 onClick={() => setFiltro("todas")}
                 className="border border-gray-300 hover:bg-gray-100 px-3 py-1 rounded text-sm cursor-pointer"
@@ -132,12 +132,12 @@ const Tarefas = () => {
             {/* percorre a lista filtrada e monta um <li> pra cada tarefa */}
             {tarefasFiltradas.map((tarefa) => (
                 <li key={tarefa.id} className="border border-gray-200 rounded p-3 flex items-start justify-between gap-2">
-                    <div>
-                        <span className={tarefa.concluida ? "font-bold line-through text-gray-400" : "font-bold"}>
+                    <div className="min-w-0">
+                        <span className={tarefa.concluida ? "font-bold break-words line-through text-gray-400" : "font-bold break-words"}>
                             {tarefa.nome}
                         </span>
                         <p className="text-xs text-gray-500">{tarefa.data}</p>
-                        <p className="text-sm text-gray-700">{tarefa.descricao}</p>
+                        <p className="text-sm text-gray-700 break-words">{tarefa.descricao}</p>
                         <span className={
                             tarefa.prioridade === "alta" ? "text-xs text-red-700"
                             : tarefa.prioridade === "media" ? "text-xs text-yellow-700"
@@ -147,7 +147,7 @@ const Tarefas = () => {
                         </span>
                     </div>
  
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 shrink-0">
                         {/* passa o id da tarefa pra função saber qual concluir/remover */}
                         <button
                             onClick={() => ConcluirTarefa(tarefa.id)}
@@ -174,5 +174,3 @@ const Tarefas = () => {
 }
  
 export default Tarefas
- 
- 
